@@ -3,6 +3,7 @@
 class App
 {
 	private $response='';
+	private $error=404;
 
 	function start($request,$post,$params,$instance)
 	{
@@ -17,14 +18,16 @@ class App
 	}
 	function setResponse($code,$response)
 	{
-		$body = array(
-			'code'=>$code,
-			'response'=>$response,
+		$json = array (
+			'response' => $response,
 		);
-		$this->response=json_encode($body);
+		$encoded = json_encode($json);
+		$this->response=$encoded;
+		$this->error=$code;
 	}
 	function run()
 	{
+		header('Content-type:application/json;charset=utf-8',true,$this->error);
 		echo($this->response);
 		if (isset($this->connection))
 			$this->connection->close();
