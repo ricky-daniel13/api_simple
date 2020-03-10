@@ -7,9 +7,6 @@ error_reporting(E_ALL);
 $instancia = '';
 $request = '';
 
-
-
-
 //Preparacion de Url
 $request_uri = @parse_url($_SERVER['REQUEST_URI']);
 $path = $request_uri['path'];

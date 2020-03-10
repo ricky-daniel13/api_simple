@@ -16,6 +16,20 @@
   # absolute physical path to the directory that contains this htaccess file.
   # RewriteBase /
 
-  RewriteCond %{REQUEST_FILENAME} !-f
+  # RewriteCond %{REQUEST_FILENAME} \.js$
+  # RewriteRule ^ %{REQUEST_FILENAME} [QSA,L]
+
+  # RewriteCond %{REQUEST_FILENAME} (\.js$|\.css$)
+  # RewriteRule (.*) /$1?vardump&thereq=%{THE_REQUEST} [R=302,L]
+  # RewriteRule (.*)$ /$1 [R=302,L]
+  # RewriteCond %{REQUEST_FILENAME} \.js$
+
+  RewriteCond %{REQUEST_URI} !(\.js$|\.css$|\.png$)
   RewriteRule ^ index.php [QSA,L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule [^\/]*\/(.*)(\.js$|\.css$|\.png$)$ /api_simple/$1$2 [QSA]
+  RewriteRule webapp\/(.*)$ /api_simple/vistas/$1 [QSA]
+  
+
 </IfModule>
